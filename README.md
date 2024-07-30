@@ -20,7 +20,7 @@ The ATS Resume Scanner is a tool designed to help job seekers optimize their res
 - Streamlit
 ## Getting Started
 
-- Clone the repository: git clone https://github.com/yourusername/ats-resume-scanner.git
+- Clone the repository: git clone https://github.com/yourusername/ATS.git
 - Navigate to the project directory: cd ats-resume-scanner
 - Install the required dependencies: pip install -r requirements.txt
 - Replace GOOGLE_API_KEY="Your_API_Key" with your Gemini Api Key in ".env" File (You can generate your API Key Here: https://makersuite.google.com)
