@@ -45,14 +45,14 @@ if uploaded_file is not None:
     st.write("PDF Uploaded Successfully")
 
 
-submit1 = st.button("Tell Me About the Resume")
+submit1 = st.button("Summarize your Resume")
 
 
 submit3 = st.button("Percentage match")
 
 input_prompt1 = """
  You are an experienced Technical Human Resource Manager,your task is to review the provided resume against the job description. 
-  Please share your professional evaluation on whether the candidate's profile aligns with the role. 
+  Please share your summary on the candidate's profile. 
  Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
 """
 
