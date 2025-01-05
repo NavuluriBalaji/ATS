@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Expert - Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --success-color: #10b981;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .form-section {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            min-height: 120px;
+            transition: var(--transition);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px dashed #e2e8f0;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        input[type="file"]:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: white;
+        }
+
+        button:first-child {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        button:last-child {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            border: 2px solid #e2e8f0;
+        }
+
+        #result h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #e2e8f0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            height: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .progress-bar-fill {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+            border-radius: var(--border-radius);
+            transition: width 500ms ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .form-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ATS Resume Expert</h1>
+    </header>
+    <section class="form-section">
+        <h2>Analyze Your Resume</h2>
+        <form id="resumeForm">
+            <label for="input_text">Job Description:</label>
+            <textarea id="input_text" name="input_text" placeholder="Paste the job description here..." required></textarea>
+            
+            <label for="uploaded_file">Upload your resume (PDF):</label>
+            <input type="file" id="uploaded_file" name="uploaded_file" accept="application/pdf" required>
+            
+            <div class="button-group">
+                <button type="button" onclick="analyzeResume('summarize')">Summarize Resume</button>
+                <button type="button" onclick="analyzeResume('match')">Calculate Match</button>
+            </div>
+        </form>
+        <div id="result" style="display: none;"></div>
+        <div id="progressBar" class="progress-bar" style="display: none;">
+            <span class="progress-bar-fill"></span>
+        </div>
+    </section>
+
+    <script>
+        function analyzeResume(action) {
+            const form = document.getElementById('resumeForm');
+            const result = document.getElementById('result');
+            const progressBar = document.getElementById('progressBar');
+            const progressBarFill = progressBar.querySelector('.progress-bar-fill');
+    
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+    
+            const formData = new FormData(form);
+            formData.append('action', action);
+    
+            result.style.display = 'none';
+            progressBar.style.display = 'block';
+            progressBarFill.style.width = '0%';
+    
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBarFill.style.width = `${progress}%`;
+                if (progress >= 90) clearInterval(interval);
+            }, 500);
+    
+            // Simulated API call
+            setTimeout(() => {
+                clearInterval(interval);
+                progressBarFill.style.width = '100%';
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    
+                    // Check action and update result based on action type
+                    if (action === 'summarize') {
+                        result.innerHTML = `
+                            <h3>Resume Summary</h3>
+                            <p>Your resume highlights strong technical skills and relevant experience. You have expertise in programming languages such as Python, JavaScript, and Java. You have worked on several high-impact projects involving machine learning and data analysis. Your academic background shows a strong foundation in computer science, and you have completed various certifications in web development and cloud technologies.</p>
+                            <p>In terms of experience, you have demonstrated the ability to lead teams and work in collaborative environments. You have excellent communication skills and have worked with cross-functional teams to achieve project goals. Your resume showcases the depth of your knowledge and your ability to continuously learn and grow in the field of technology.</p>
+                        `;
+                    } else {
+                        result.innerHTML = `
+                            <h3>Match Percentage</h3>
+                            <p>Your resume matches 85% of the job requirements based on the job description provided. The areas of alignment include technical skills, such as proficiency in Python, and experience with cloud computing. A few areas where your resume could be enhanced are more experience with front-end technologies and project management skills.</p>
+                        `;
+                    }
+    
+                    result.style.display = 'block';
+                }, 500);
+            }, 3000);
+        }
+    </script>
+    
+</body>
+</html>
