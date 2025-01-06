@@ -1,5 +1,16 @@
-streamlit
-google-generativeai
-python-dotenv
-pdf2image
-dotenv
+ftfy==6.2.0
+fuzzywuzzy==0.18.0
+genai==2.1.0
+generativeai==0.0.1
+geographiclib==2.0
+geopy==2.4.1
+gitdb==4.0.11
+GitPython==3.1.43
+glide-text2im @ git+https://github.com/openai/glide-text2im@69b530740eb6cef69442d6180579ef5ba9ef063e
+google==3.0.0
+google-ai-generativelanguage==0.1.0
+google-api-core==2.19.2
+google-auth==2.34.0
+google-cloud-aiplatform==1.66.0
+google-cloud-bigquery==3.25.0
+google-cloud-core==2.4.1

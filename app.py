@@ -90,4 +90,4 @@ def coming_soon():
     return render_template('coming_soon.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
